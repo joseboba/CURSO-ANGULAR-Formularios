@@ -1,0 +1,188 @@
+<h4>Formularios <small> Reactivo </small></h4>
+<hr>
+<form autocomplete="off" [formGroup]="forma" (ngSubmit)="guardar()">
+
+  <div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Nombre</label>
+      <div class="col">
+
+        <input class="form-control"
+               type="text"
+               formControlName="nombre"
+               placeholder="Nombre"
+               [class.is-invalid]="nombreNoValido">
+        <small *ngIf="nombreNoValido" class="text-danger">
+          Ingrese 5 letras
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Apellido</label>
+      <div class="col">
+
+        <input class="form-control"
+               type="text"
+               formControlName="apellido"
+               [class.is-invalid]="apellidoNoValido"
+               placeholder="Apellido">
+        <small *ngIf="apellidoNoValido" class="text-danger">
+          Ingrese 5 letras
+        </small>
+          
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Correo</label>
+    <div class="col">
+
+      <input class="form-control"
+             type="email"
+             formControlName="correo"
+             [class.is-invalid]="correoNoValido"
+             placeholder="Correo electrónico">
+      <small *ngIf="correoNoValido" class="text-danger">
+        Ingrese correo valido
+      </small>
+    </div>
+  </div>
+
+
+  <div class="form-group row" formGroupName="direccion">
+    <label class="col-2 col-form-label">Direccion</label>
+    <div class="form-row col">
+
+      <div class="col">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Distrito"
+            formControlName="distrito"
+            [class.is-invalid]="distritoNoValido"
+          >
+      </div>
+
+      <div class="col">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Ciudad"
+          formControlName="ciudad"
+          [class.is-invalid]="ciudadNoValido"
+        >
+    </div>
+      
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Contraseña</label>
+    <div class="form-row col">
+      
+    <input class="form-control"
+           type="password"
+           placeholder="Contraseña"
+           formControlName="pass1"
+           [class.is-invalid]="pass1NoValido"
+  >
+  
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Repita contraseña</label>
+    <div class="form-row col">
+      
+    <input class="form-control"
+           type="password"
+           placeholder="Contraseña"
+           formControlName="pass2"
+           [class.is-invalid]="pass2NoValido"
+           >
+  
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Usuario</label>
+    <div class="form-row col">
+      
+    <input class="form-control"
+           type="text"
+           placeholder="Ingrese su usuario"
+           formControlName="usuario"
+           [class.is-invalid]="usuarioNoValido"
+           >
+    <small *ngIf="usuarioNoValido" class="text-danger">
+      Ese nombre de usuario ya fue tomado.
+    </small> 
+    </div>
+  </div>
+
+    <div class="row">
+      <div class="col">
+
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th>ID</th>
+              <th>Pasatiempo</th>
+              <th>Borrar</th>
+            </tr>
+          </thead>
+          <tbody formArrayName="pasatiempos">
+            <tr *ngFor="let control of pasatiempos.controls; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>
+                <input
+                  class="form-control"
+                  type="text"
+                  [formControlName]="i"
+                >
+              </td>
+              <td>
+                <button class="btn btn-danger" (click)="borrarPasatiempo(i)">Borrar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <button class="btn btn-primary mt-3 mb-5 btn-block" 
+                type="button" 
+                (click)="agregarPasatiempo()"> +Agregar </button>
+
+      </div>
+    </div>
+
+
+    
+
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">&nbsp;</label>
+    <div class="input-group col">
+      <button type="submit" class="btn btn-outline-primary btn-block">
+        Guardar
+      </button>
+    </div>
+  </div>
+
+</form>
+
+
+<hr>
+<pre>
+  Estado del formualrio : {{ forma.valid }}
+  <br>
+  Status: {{ forma.status }}
+</pre>
+
+<pre>
+  {{ forma.value | json }}
+</pre>

@@ -1,0 +1,129 @@
+<h4>Formularios <small> Template </small></h4>
+<hr>
+<form autocomplete="off" (ngSubmit)="guardar(form)" #form="ngForm">
+
+  <div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Nombre</label>
+      <div class="col-8">
+
+        <input class="form-control"
+               type="text"
+               name="nombre"
+               [class.is-invalid]="nombre.invalid && nombre.touched"
+               [ngModel]="usuario.nombre"
+               placeholder="Nombre"
+               required
+               minlength="5"
+               autocomplete="off"
+               #nombre="ngModel">
+        <small class="form-text text-danger" *ngIf="nombre.invalid && nombre.touched">Ingrese 5 letras</small>
+
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Apellido</label>
+      <div class="col-8">
+
+        <input class="form-control"
+               type="text"
+               [class.is-invalid]="apellido.touched && apellido.invalid"
+               name="apellido"
+               [ngModel]="usuario.apellido"
+               required
+               minlength="5"
+               placeholder="Apellido"
+               autocomplete="off"
+               #apellido="ngModel">
+        <small class="form-text text-danger" *ngIf="apellido.touched && apellido.invalid">Ingrese 5 letras</small>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Correo</label>
+    <div class="col-8">
+
+      <input class="form-control"
+             type="email"
+             [class.is-invalid]="correo.invalid && correo.touched"
+             name="email"
+             [ngModel]="usuario.email"
+             placeholder="Correo electrónico"
+             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+             required
+             autocomplete="off"
+             #correo="ngModel">
+    <small class="form-text text-danger" *ngIf="correo.touched && correo.invalid">Correo es obligatorio</small>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Pais</label>
+    <div class="col-8">
+
+        <select class="form-control"
+                name="pais"
+                [ngModel]="usuario.pais"
+                required
+                [disabled]="paises.length === 0"
+                [class.is-invalid]="paisV.invalid && paisV.touched"
+                #paisV="ngModel"
+                >
+            <option *ngFor="let pais of paises" 
+                    [value]="pais.codigo"> 
+                {{ pais.nombre }} 
+            </option>
+        </select>
+        <small class="form-text text-danger" *ngIf="paisV.touched && paisV.invalid">Ingrese un pais</small>
+
+
+    </div>
+  </div>    
+  
+  
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Genero</label>
+    <div class="col-8">
+
+        <div class="form-check form-check-inline">
+            <input  class="form-check-input" 
+                    type="radio"
+                    name="genero"
+                    [class.is-invalid]="genero.invalid && genero.touched"
+                    value="'M'"
+                    required 
+                    [ngModel]="usuario.genero"
+                    #genero="ngModel">
+            <label class="form-check-label">Masculino</label>
+        </div>
+
+        <div class="form-check form-check-inline">
+            <input  class="form-check-input" 
+                    type="radio"
+                    name="genero"
+                    [class.is-invalid]="genero.invalid && genero.touched"
+                    value="'F'"
+                    required 
+                    [ngModel]="usuario.genero"
+                    #genero="ngModel">
+            <label class="form-check-label">Femenino</label>
+        </div>
+    
+    </div>
+  </div>   
+
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">&nbsp;</label>
+    <div class="input-group col-md-8">
+      <button type="submit" class="btn btn-outline-primary btn-block">
+        Guardar
+      </button>
+    </div>
+  </div>
+
+</form>
